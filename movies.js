@@ -1,7 +1,7 @@
 const fetch = require("node-fetch");
 const redis = require('async-redis');
 
-const dataSourceUrl = 'http://www.omdbapi.com?apikey=e7392bd6&t=';
+const dataSourceUrl = 'http://www.omdbapi.com?apikey=e739XXXX&t=';
 const client = redis.createClient(6379);
 const expirationTime = 200; //Seconds
 const movieKeyFormat = 'movie.name=';
