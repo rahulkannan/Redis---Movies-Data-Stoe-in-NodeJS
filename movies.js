@@ -36,14 +36,16 @@ async function getData(name) {
 }
 
 // REDIS APIS
+async function getCache(movieName) {
+	let key = movieKeyFormat + movieName;
+	let data = await getRedisCache(key);
+	return JSON.parse(data);
+}
+
 async function setCache(movieName, data) {
 	let key = movieKeyFormat + movieName;
 	data = JSON.stringify(data);
 	return await setRedisCache(key, data);
-}
-
-async function getRedisCache(key) {
-	return await client.get(key);
 }
 
 async function clearCache(key) {
@@ -52,14 +54,12 @@ async function clearCache(key) {
 }
 
 // REDIS CORE.
-async function setRedisCache(key, value) {
-	await client.setex(key, expirationTime, value);
+async function getRedisCache(key) {
+	return await client.get(key);
 }
 
-async function getCache(movieName) {
-	let key = movieKeyFormat + movieName;
-	let data = await getRedisCache(key);
-	return JSON.parse(data);
+async function setRedisCache(key, value) {
+	await client.setex(key, expirationTime, value);
 }
 
 async function clearRedisCache(key) {
